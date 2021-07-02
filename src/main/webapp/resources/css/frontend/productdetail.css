@@ -1,0 +1,70 @@
+.productdetail-button-div {
+    margin: 0 .3rem;
+}
+.productdetail-button-div > .button {
+    width: 30%;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    display: inline-block;
+    margin: 1%;
+    overflow: hidden;
+}
+
+#product-price
+{
+    font-size: 25px;
+    color: #f44;
+        margin-top: 10px;
+    margin-bottom:10px;
+    /* 
+    height: 14px;
+    line-height: 22px; */
+}
+
+.list-div 
+{
+	margin: .5rem;
+    box-shadow: 0 0.05rem 0.1rem rgba(0,0,0,.3);
+    
+}
+
+.list-div > #img-addr
+{
+	width: 96.5%;
+} 
+
+.bar-tab > .red-collect
+{
+	color:red;
+}
+.list-block
+{
+	margin: 0.1rem 0;
+}
+.list-block  ul
+{
+	background: #fff;
+    box-shadow: 0 0.05rem 0.1rem rgba(0,0,0,.3);
+    margin: .5rem;
+    position: relative;
+    border-radius: .1rem;
+    font-size: .7rem;
+}
+/* .comment-div > #commet-subtitle
+{
+	font-size:small;
+} */
+.content > #comment
+{
+    font-size: x-large;
+    font-style: oblique;
+    color: darksalmon;
+    font-weight: 700;
+}
+
+.bar-tab > .red-sold
+{
+	color: crimson;
+    font-size: x-large;
+    font-weight: 800;
+}

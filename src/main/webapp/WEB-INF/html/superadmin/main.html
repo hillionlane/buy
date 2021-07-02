@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- jquery easyui -->
+<link rel="stylesheet" type="text/css"
+	href="../resources/js/superadmin/common/easyui/themes/bootstrap/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="../resources/js/superadmin/common/easyui/themes/icon.css">
+<script type="text/javascript"
+	src="../resources/js/superadmin/common/jquery.min.js"></script>
+<script type="text/javascript"
+	src="../resources/js/superadmin/common/easyui/js/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="../resources/js/superadmin/common/easyui/js/easyui-lang-zh_CN.js"></script>
+<link rel="stylesheet"
+	href="../resources/css/superadmin/common/tooltip-form-style.css"></link>
+<link rel="stylesheet"
+	href="../resources/css/superadmin/main.css"></link>
+<script type="text/javascript"
+	src="../resources/js/superadmin/common/errorhandle.js"></script>
+<script type="text/javascript"
+	src="../resources/js/superadmin/main.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>闲猪管理系统</title>
+</head>
+<!-- 设置了class就可在进入页面加载layout -->
+<body class="easyui-layout">
+	<!-- 正上方panel -->
+	<div class="north" region="north" href="/buy/superadmin/top"></div>
+	<!-- 正左边panel -->
+	<div class="west" region="west" title="菜单栏" split="true">
+		<div class="easyui-accordion" fit="true" border="false">
+			<!-- selected -->
+			<div title="系统管理" selected="true">
+				<ul>
+					<li><a
+						href="javascript:addTab('tabId_headTitleManagement','头条管理','headlinemanage');">头条管理</a></li>
+					<li><a
+						href="javascript:addTab('tabId_productCategoryManagement','类别管理','productcategorymanage');">类别管理</a></li>
+					<li><a
+						href="javascript:addTab('tabId_areaManagement','区域管理','areamanage');">区域管理</a></li>
+					<li><a
+						href="javascript:addTab('tabId_userManagement','帐号管理','usermanage');">帐号管理</a></li>
+					<li><a
+						href="javascript:addTab('tabId_productManagement','商品管理','productmanage');">商品管理</a></li>
+					<li><a
+						href="javascript:addTab('tabId_orderManagement','订单管理','ordermanage');">订单管理</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- 正中间panel -->
+	<div region="center" title="功能区">
+		<div class="easyui-tabs"  id="centerTab" fit="true" border="false" style="overflow: hidden;"> 
+			<div title="欢迎页" style="padding: 20px; overflow: hidden;">
+				<div style="margin-top: 20px;" class="welcome-slogon">
+					<h3>你好，欢迎来到闲猪管理系统</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 正下方panel -->
+	<div class="south" region="south"   align="center">
+		<label> 作者：何紫琦<br /> 时间：2019-04-20
+		</label>
+	</div>
+</body>
+</html>

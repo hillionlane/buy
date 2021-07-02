@@ -1,0 +1,193 @@
+@CHARSET "UTF-8";
+
+.panel .datagrid
+{
+	width:700px !important;
+}
+.panel-header
+{
+	height: 55px;
+	width:700px;
+}
+.panel-header .panel-title
+{
+	font-size: 35px;
+    font-weight: bold;
+    color: #777;
+    height: 50px;
+    line-height: 40px;
+}
+.panel-title.panel-with-icon
+{
+	padding-left: 48px;
+}
+.panel-icon.icon-edit
+{
+	width: 45px;
+    height: 50px;
+    margin-top: -25px;
+    background-size: contain;
+}
+.l-btn-text
+{
+	font-size: 35px;
+    line-height: 55px;
+}
+.combox
+{
+	margin: 5px;
+    padding: 1px;
+    height: 60px;
+    font-size: 35px;
+}
+.option
+{
+    font-size: 30px;
+}
+.datagrid-header-row
+{
+	height: 65px;
+}
+.datagrid-cell
+{
+	line-height: 63px;
+	font-size:35px !important;
+} 
+.datagrid-cell span
+{
+	font-size:33px !important;
+    color: teal !important;
+    font-weight: bolder;
+}
+.datagrid-header-check 
+{
+	width: 50px;
+    height: 50px;
+    padding-top: 10px;
+}
+    
+.datagrid-header-check input
+{
+	width: 30px;
+    height: 30px;
+}
+.datagrid-cell-check 
+{
+	width: 50px;
+    height: 50px;
+    padding-top: 10px;
+}
+.datagrid-cell-check input
+{
+	width: 30px;
+    height: 30px;
+}
+.datagrid-view
+{
+	width:100%;
+}
+.datagrid-wrap
+{
+	width:100%;
+}
+.datagrid-toolbar
+{
+	width:100%;
+}
+.pagination-page-list
+{
+	height: 50px;
+    width: 100px;
+    font-size: 35px;
+}
+.pagination-btn-separator
+{
+	 height: 54px;
+	 margin: 3px 3px;
+}
+.pagination span
+{
+	font-size: 42px !important;
+}
+.pagination .pagination-num
+{
+	width: 100px;
+	height:50px;
+	font-size: 35px;
+}
+.pagination-info
+{
+	line-height: 60px;
+    font-size: 42px;
+}
+.l-btn-text.l-btn-empty
+{
+	width: 32px;
+    height: 60px;
+}
+.l-btn-icon
+{
+	background-size: cover !important;
+    width: 40px;
+    height: 40px;
+    margin-top: -20px;
+}
+.l-btn-icon-left .l-btn-text
+{
+	margin-left: 55px; 
+}
+/**/
+.window .panel-header-noborder .panel-tool
+{
+	height: 30px;
+    width: 90px;
+}
+.window .panel-header-noborder .panel-tool a
+{
+	height: 100px;
+    width: 40px;
+    background-size: cover !important;
+}
+.panel-tool-collapse
+{
+	/* background: url(images/panel_tools.png) no-repeat -3px -25px !important; */
+}
+/*添加取消按钮*/
+.messager-button .l-btn
+{
+	width:100px;
+}
+.panel-tool-close
+{
+	/* background: url(images/panel_tools.png) no-repeat -50px -11px !important; */
+}
+    /* background: url(images/panel_tools.png) no-repeat -49px -10px; */
+/* .pagination-next
+{
+	background:url(images/pagination_icons.png) no-repeat -80px center !important;
+}
+.pagination-last
+{
+	backgroud:url(images/pagination_icons.png) no-repeat -128px center !important;
+}
+.pagination-load
+{
+	backgroud:url(images/pagination_icons.png) no-repeat -154px center !important;
+} */
+@media screen and (max-device-width: 480px) { 
+
+#pMain{ 
+
+float: none; 
+
+width:auto; 
+
+} 
+
+#pSidebar { 
+
+display:none; 
+
+} 
+
+} 

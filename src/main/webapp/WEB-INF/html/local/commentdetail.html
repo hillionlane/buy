@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>评价详情</title>
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<link rel="shortcut icon" href="/favicon.ico">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="stylesheet"
+	href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+<link rel="stylesheet"
+	href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+<link rel="stylesheet" href="../resources/css/local/commentdetail.css">
+</head>
+<body>
+	<div class="page-group">
+		<div class="page">
+			<header class="bar bar-nav">
+				<a class="button button-link button-nav pull-left" external href="#"
+					onClick="javascript :history.back(-1);" data-transition='slide-out'>
+					<span class="icon icon-left"></span> 返回
+				</a>
+				<h1 class="title" id="commentdetail">评价详情</h1>
+			</header>
+			<!-- 这里是页面内容区 -->
+			<div class="content infinite-scroll infinite-scroll-bottom"
+				data-distance="100">
+				<div class="product-detail-dev">
+					<div class="card">
+						<div valign="bottom"
+							class="card-header color-white no-border no-padding">
+							<img id="product-img" class='card-cover' src="" alt="">
+						</div>
+						<div class="card-content">
+							<div class="card-content-inner">
+								<p class="color-gray">
+									<span id="product-name"></span>
+								</p>
+								<p id="product-desc"></p>
+							</div>
+						</div>
+						<div class="card-footer" id="footer">
+							<p id="completed-time"></p>
+							<p id="product-price"></p>
+						</div>
+					</div>
+				</div>
+				<!-- 交易评论区 -->
+				<div class="content-block-title" id="comment-detail">交易评论</div>
+				<!-- 买家评论 -->
+				<div class="buyerComment buyer-logo" id="buyer-comment">
+						<div class="buyer-logo">买家评价</div> 
+					<div class="list-block media-list">
+						<div class="item-content">
+							<!-- <div class="item-media">
+								<img id="buyer-img" class='card-cover' src="" alt="" width="100">
+							</div> -->
+							<div class="item-inner">
+								<div class="item-title-row">
+								    <div class="item-media imgclass">
+								       <img id="buyer-img" class='card-cover' src="" alt="" width="60">
+								       <p id="buyer-name" style="font-size: 22px; color: lightskyblue; font-weight: 400;"></p>
+							        </div>
+									<!-- <div class="item-title" id="buyer-name"
+										style="font-size: larger; color: lightskyblue;">
+									</div> -->
+								</div>
+								<div class="item-subtitle" id="buyer-Ocomment"></div>
+								<div class="item-text" style="font-size: small; height: 1rem;"
+									id="buyer-ctime"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 卖家评论 -->
+				<div class="sellerComment seller-logo" id="seller-comment">
+						<div class="seller-logo">卖家评价</div>
+					<div class="list-block media-list "> 
+						<div class="item-content">
+							<!-- <div class="item-media">
+								<img id="seller-img" class='card-cover' src="" alt=""
+									width="100">
+							</div> -->
+							<div class="item-inner">
+								<div class="item-title-row">
+								<div class="item-media">
+									<img id="seller-img" class='card-cover' src="" alt=""
+										width="60">
+									<p id="seller-name" style="font-size: 22px; color: lightskyblue; font-weight: 400;"></p>
+								</div>
+								<!-- <div class="item-title" id="seller-name"
+										style="font-size: larger; color: lightskyblue;">
+								</div> -->
+								</div>
+								<div class="item-subtitle" id="seller-Ocomment"></div>
+								<div class="item-text" style="font-size: small; height: 1rem;"
+									id="seller-ctime"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type='text/javascript'
+		src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+	<script type='text/javascript'
+		src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+	<script type='text/javascript'
+		src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+	<script type='text/javascript' src='../resources/js/common/common.js'
+		charset='utf-8'></script>
+	<script type='text/javascript'
+		src='../resources/js/local/commentdetail.js' charset='utf-8'></script>
+</body>
+</html>

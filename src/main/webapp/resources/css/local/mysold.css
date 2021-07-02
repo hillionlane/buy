@@ -1,0 +1,20 @@
+.infinite-scroll-preloader {
+    margin-top: -5px;
+} 
+.content-block.list-div
+{
+	padding:0rem;
+}
+
+.list-div .content-block {
+	padding: 0;
+}
+.content-block
+{
+	margin:unset;
+}
+.list-block > .item-subtitle
+{
+	padding-top: 1.5rem;
+    padding-left: 0.5rem;
+}

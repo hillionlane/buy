@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>商品类别信息管理</title>
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<link rel="shortcut icon" href="/favicon.ico">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="stylesheet" type="text/css"
+	href="../resources/js/superadmin/common/easyui/themes/bootstrap/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="../resources/js/superadmin/common/easyui/themes/icon.css">
+<script type="text/javascript"
+	src="../resources/js/superadmin/common/jquery.min.js"></script>
+<script type="text/javascript"
+	src="../resources/js/superadmin/common/easyui/js/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="../resources/js/superadmin/common/easyui/js/easyui-lang-zh_CN.js"></script>
+<link rel="stylesheet"
+	href="../resources/css/superadmin/common/tooltip-form-style.css"></link> 
+<link rel="stylesheet"
+	href="../resources/css/superadmin/commoncss.css"></link>
+<script type="text/javascript"
+	src="../resources/js/superadmin/common/easyui/js/commonutil.js"></script>	
+<script type="text/javascript"
+	src="../resources/js/common/jquery.form.min.js"></script>
+<script type="text/javascript"
+	src="../resources/js/superadmin/common/errorhandle.js"></script>
+<script type="text/javascript" src='../resources/js/common/common.js'
+		charset='utf-8'></script>
+<script type="text/javascript"
+	src="../resources/js/superadmin/productcategorymanage.js"></script>
+</head>
+
+<body>
+	<!-- 表格 -->
+	<table id="productCategoryManagementTable" title="类别一览" border="0"
+		cellspacing="0" cellpadding="0" iconCls="icon-edit" width="100%"
+		idField="productCategoryId" pagination="true" remoteSort="false"
+		singleSelect="false" showFooter="false" striped="true">
+		<thead>
+			<tr align="center">
+				<th field="ck" width="20" checkbox="true" width="20"></th>
+				<th field="productCategoryId" width="80">类别Id</th>
+				<th field="productCategoryName" width="100">类别名称</th>
+				<th field="productCategoryDesc" width="200">类别描述</th>
+				<th field="parent" width="80" formatter="parentFormater">上级类别</th>
+				<th field="productCategoryImg" width="120" formatter="imgFormater">类别图片</th>
+				<th field="priority" width="100">优先级</th>
+				<th field="createTime" width="150" formatter="createTimeFormater">创建时间</th>
+				<th field="lastEditTime" width="150" formatter="lastEditTimeFormater">最近修改时间</th>
+				<th field="opt" formatter='optFormater' width="120">操作</th>
+			</tr>
+		</thead>
+	</table>
+
+	<!-- 添加 -->
+	<div id="productCategoryManagementAdd" icon="icon-save"
+		style="padding: 5px; width: 1000px; height: 700px;">
+		<h5 id="productCategoryManagementAdd_message" style="color: red;
+			font-size: 30px;margin: 2px 5px 0px 30px;"></h5>
+		<form id="productCategoryFormAdd" method="post"
+			enctype="multipart/form-data" style=" height: 90%; padding-top: 30px;">
+			<div class="ToolTip_Form" id="table_productCategoryManagementAdd">
+				<ul>
+					<li><label>类别名称：</label> <input type="text"
+						class="easyui-validatebox" maxlength="6"
+						id="productCategoryManagementAdd_productCategoryName" required="true"
+						style="resize: none; width: 300px"></input></li>
+					<li><label>类别描述：</label> <input type="text"
+						class="easyui-validatebox" maxlength="16"
+						id="productCategoryManagementAdd_productCategoryDesc" required="true"
+						style="resize: none; width: 300px"></input></li>
+					<li><label>上级类别：</label> <select
+						id="productCategoryManagementAdd_parentId" style="height: 50px;font-size:30px;">
+					</select></li>
+					<li><label>类别图片：</label><input
+						name="productCategoryManagementAdd_productCategoryImg"
+						id="productCategoryManagementAdd_productCategoryImg" type="file" /></li>
+					<li><label>优先级：</label> <input type="text"
+						class="easyui-validatebox" id="productCategoryManagementAdd_priority"
+						maxlength="5" required="true" style="resize: none; width: 150px"></input>
+						<font color="red" style="font-size: 30px;">最多五位,必须为数字 </font></li>
+					<li><a href="#" class="easyui-linkbutton" icon="icon-ok"
+						onclick="productCategoryManagementAdd();">提交</a> <a href="#"
+						class="easyui-linkbutton" icon="icon-redo"
+						onclick="productCategoryManagementAddReset();">重置</a></li>
+				</ul>
+			</div>
+		</form>
+	</div>
+
+	<!-- 编辑 -->
+	<div id="productCategoryManagementEdit" icon="icon-save"
+		style="padding: 5px; width: 1000px; height: 700px;">
+		<h5 id="productCategoryManagementEdit_message" style="color: red;
+			font-size: 30px;margin: 2px 5px 0px 30px;"></h5>
+		<form id="productCategoryFormEdit" method="post"
+			enctype="multipart/form-data" style=" height: 90%; padding-top: 30px;">
+			<div class="ToolTip_Form" id="table_productCategoryManagementEdit">
+				<input type="hidden" id="productCategoryManagementEdit_productCategoryId"></input>
+				<ul>
+					<li><label>类别名称：</label> <input type="text"
+						class="easyui-validatebox" maxlength="6"
+						id="productCategoryManagementEdit_productCategoryName" required="true"
+						style="resize: none; width: 300px"></input></li>
+					<li><label>类别描述：</label> <input type="text"
+						class="easyui-validatebox" maxlength="16"
+						id="productCategoryManagementEdit_productCategoryDesc" required="true"
+						style="resize: none; width: 300px"></input></li>
+					<li><label >上级类别：</label> <select
+						id="productCategoryManagementEdit_parentId" style="height: 50px;font-size:30px;">
+					</select></li>
+					<li><label>类别图片：</label><input
+						name="productCategoryManagementEdit_productCategoryImg"
+						id="productCategoryManagementEdit_productCategoryImg" type="file" /></li>
+					<li><label>优先级：</label> <input type="text"
+						class="easyui-validatebox" id="productCategoryManagementEdit_priority"
+						maxlength="5" required="true" style="resize: none; width: 150px"></input>
+						<font color="red" style="font-size: 30px;">最多五位,必须为数字 </font></li>
+					<li><a href="#" class="easyui-linkbutton" icon="icon-ok"
+						onclick="productCategoryManagementEdit();">提交</a></li>
+				</ul>
+			</div>
+		</form>
+	</div>
+	<input id="productCategoryIdHd" type="hidden" value="ALL" /> 
+	<input id="urlHd" type="hidden" value="listallproductcategorys" />
+</body>
+</html>

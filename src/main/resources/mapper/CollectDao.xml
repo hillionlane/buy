@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.buy.dao.CollectDao">
+	<resultMap type="com.my.buy.entity.Collect" id="collectMap">
+		<id column="collect_id" property="collectId"/>
+		<result column="status" property="status"/>
+		<result column="user_id" property="userId"/>
+		<association property="product" column="product_id"
+			javaType="com.my.buy.entity.Product">
+			<id column="product_id" property="productId"/>
+			<result column="product_name" property="productName"/>
+			<result column="product_desc" property="productDesc"/>
+			<result column="product_img" property="productImg"/>
+			<result column="product_price" property="productPrice"/>
+			<result column="priority" property="priority"/>
+			<result column="create_time" property="createTime"/>
+			<result column="last_edit_time" property="lastEditTime"/>
+			<result column="enable_status" property="enableStatus"/>
+		</association>
+	</resultMap>
+	<insert id="insertCollection" useGeneratedKeys="true" keyColumn="collect_id"
+	keyProperty="collectId" parameterType="com.my.buy.entity.Collect">
+		INSERT 
+		INTO 
+		tb_collect(user_id,product_id,status)
+		VALUES(#{userId},#{product.productId},#{status})
+	</insert>
+	
+	<select id="selectCollection" resultMap="collectMap" >
+		SELECT
+		c.collect_id,
+		c.user_id, 
+		c.status,
+		c.product_id
+		FROM
+		tb_collect c 
+		WHERE 
+		c.user_id=#{userId}
+		AND
+		c.product_id=#{productId}
+	</select>
+	
+	<delete id="deleteCollection" >
+		DELETE
+		FROM
+		tb_collect
+		WHERE
+		user_id=#{userId}
+		AND
+		product_id=#{productId}
+	</delete>
+	
+	<select id="queryCollectListByUserId" resultMap="collectMap"> 
+		SELECT
+		c.collect_id,
+		c.user_id, 
+		c.status,
+		p.product_id,
+		p.product_name,
+		p.product_Desc,
+		p.product_img,
+		p.product_price,
+		p.priority,
+		p.create_time,
+		p.last_edit_time,
+		p.enable_status
+		FROM
+		tb_collect c,
+		tb_product p
+		WHERE
+		c.product_id=p.product_id
+		AND
+		c.user_id=#{userId} 
+		LIMIT #{rowIndex},#{pageSize};
+	</select>
+	
+	<select id="queryCollectionCount" resultType="int">
+		SELECT
+		count(1)
+		FROM
+		tb_collect c
+		WHERE
+		c.user_id=#{userId} 
+		LIMIT #{rowIndex},#{pageSize};
+	</select>
+</mapper>

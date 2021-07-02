@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>我的主页</title>
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<link rel="shortcut icon" href="/favicon.ico">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="stylesheet" href='../resources/css/local/myproducts.css'>
+<link rel="stylesheet"
+	href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+<link rel="stylesheet"
+	href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+</head>
+<body>
+	<div class="page-group">
+		<div class="page">
+			<header class="bar bar-nav">
+				<a class="button button-link button-nav pull-left" external href="#"
+					data-transition='slide-out' onclick="javascript:history.back(-1);">
+					<span class="icon icon-left"></span> 返回
+				</a> 
+				 <a class="button button-link button-nav pull-right open-popup"
+					data-popup=".popup-about" style="height: 42px;padding-right:5px;"> 
+					<span class="icon" id="my-profile"></span>  </a>
+				 
+				<h1 class="title">用户主页</h1>
+			</header>
+
+			<nav class="bar bar-tab">
+				<a class="tab-item external active"
+					href="/buy/frontendadmin/mainpage" external> <span
+					class="icon icon-home"></span> <span class="tab-label">首页</span>
+				</a> <a class="tab-item external" 
+					href="/buy/frontendadmin/productoperation" external><span 
+					class="icon icon-edit"></span> <span class="tab-label">发布</span>
+				</a> <a class="tab-item external" 
+					id='me' href="#" external> <span
+					class="icon icon-me"></span> <span class="tab-label">我的</span>
+				</a>
+			</nav>
+			<div class="content infinite-scroll infinite-scroll-bottom"
+				data-distance="100">
+
+
+				<div class="list-div product-list">
+					<!-- <div class="card">
+                            <div class="card-header">传统火锅店</div>
+                            <div class="card-content">
+                                <div class="list-block media-list">
+                                    <ul>
+                                        <li class="item-content">
+                                            <div class="item-media">
+                                                <img src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg" width="44">
+                                            </div>
+                                            <div class="item-inner">
+                                                <div class="item-subtitle"></div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <span>2015/01/15</span>
+                                <span>5 评论</span>
+                            </div>
+                        </div> -->
+				</div>
+				<!-- 无极分页时加载 -->
+				<div class="infinite-scroll-preloader">
+					<div class="preloader"></div>
+				</div>
+			</div>
+		</div>
+	</div> 
+	<div class="user-info">
+		<div class="popup popup-about">
+			<header class="bar bar-nav">
+				<a class="button button-link button-nav pull-right close-popup">
+					关闭 </a>
+				<h1 class="title">个人信息</h1>
+			</header>
+			<div class="content">
+				<div class="content-inner">
+					<div class="content-block">
+						<div class="content">
+							<div class="list-block">
+								<ul>
+									<!-- Text inputs -->
+									<li>
+										<div class="item-content">
+											<div class="item-media">
+												<i class="icon icon-picture"></i>
+											</div>
+											<div class="item-inner">
+												<div class="item-title label">头像</div>
+												<div class="item-input" id="profile-img"> 
+												
+												</div>
+											</div>
+										</div>
+									</li>
+									<li>
+										<div class="item-content">
+											<div class="item-media">
+												<i class="icon icon-card"></i>
+											</div>
+											<div class="item-inner">
+												<div class="item-title label">姓名</div>
+												<div class="item-input">
+													<input type="text" placeholder="Your name" id="user-name">
+												</div>
+											</div>
+										</div>
+									</li>
+									<li>
+										<div class="item-content">
+											<div class="item-media">
+												<i class="icon icon-app"></i>
+											</div>
+											<div class="item-inner">
+												<div class="item-title label">邮箱</div>
+												<div class="item-input">
+													<input type="email" placeholder="E-mail" id="user-email">
+												</div>
+											</div>
+										</div>
+									</li>
+									<li>
+										<div class="item-content">
+											<div class="item-media">
+												<i class="icon icon-friends"></i>
+											</div>
+											<div class="item-inner">
+												<div class="item-title label">性别</div>
+												<div class="item-input" >
+													<input type="text" placeholder="性别" id="user-gender"> 
+												</div>
+											</div>
+										</div>
+									</li>
+									<!-- number -->
+									<li>
+										<div class="item-content">
+											<div class="item-media">
+												<i class="icon icon-clock"></i>
+											</div>
+											<div class="item-inner">
+												<div class="item-title label">年龄</div>
+												<div class="item-input">
+													<input type="number" placeholder="年龄" id="user-age">
+												</div>
+											</div>
+										</div>
+									</li>
+									<li>
+										<div class="item-content">
+											<div class="item-media">
+												<i class="icon icon-phone"></i>
+											</div>
+											<div class="item-inner">
+												<div class="item-title label">电话</div>
+												<div class="item-input">
+													<input type="text" placeholder="phone"
+														id="user-phone">
+												</div>
+											</div>
+										</div>
+									</li>
+									<li>
+										<div class="item-content">
+											<div class="item-media">
+												<i class="icon icon-home"></i>
+											</div>
+											<div class="item-inner">
+												<div class="item-title label">地址</div>
+												<div class="item-input">
+													<input type="text" placeholder="address"
+														id="user-addr">
+												</div>
+											</div>
+										</div>
+									</li>
+									<li>
+										<div class="item-content">
+											<div class="item-media">
+												<i class="icon icon-message"></i>
+											</div>
+											<div class="item-inner">
+												<div class="item-title label">用户简介</div>
+												<div class="item-input" id="user-desc">
+													<textarea></textarea>
+												</div>
+											</div>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div> 
+		<!--侧边栏  -->
+		<div class="panel-overlay"></div>
+		<div class="panel panel-right panel-reveal" id="panel-left-demo">
+			<div class="content-block">
+				<p>
+					<a href="/buy/localadmin/myproducts" class="close-panel" external>我的发布</a>
+				</p>
+				<p>
+					<a href="/buy/localadmin/showmycollection" class="close-panel" external>我的收藏</a>
+				</p>
+				<p>
+					<a href="/buy/orderadmin/mysold" class="close-panel" external>我卖出的</a>
+				</p> 
+				<p>
+					<a href="/buy/orderadmin/mybought" class="close-panel" external>我买到的</a>
+				</p> 
+				<p>
+					<a href="/buy/orderadmin/mycomment" class="close-panel" external>我得到的评价</a>
+				</p>
+				<p>
+					<a href="/buy/localadmin/modifyuserinfo" class="close-panel"
+						external>修改个人信息</a>
+				</p>
+				<p>
+					<a href="/buy/localadmin/modifyuserpwd" class="close-panel"
+						external>修改密码</a>
+				</p>
+				<p>
+					<a href="#" id="log-out" class="close-panel" external>退出系统</a>
+				</p>
+				<p>
+					<a href="#" class="close-panel">关闭</a>
+				</p>
+			</div>
+		</div>
+		<script type='text/javascript'
+			src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+		<script type='text/javascript'
+			src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+		<script type='text/javascript'
+			src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js'
+			charset='utf-8'></script>
+		<script type='text/javascript' src='../resources/js/common/common.js'
+			charset='utf-8'></script>  
+		<script type='text/javascript'
+			src='../resources/js/local/myproducts.js' charset='utf-8'></script>
+		<script type='text/javascript' src='../resources/js/local/logout.js'
+			charset='utf-8'></script>
+</body>
+</html>

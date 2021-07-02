@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>商品详情</title>
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<link rel="shortcut icon" href="/favicon.ico">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black"> 
+<link rel="stylesheet"
+	href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+<link rel="stylesheet"
+	href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+<link rel="stylesheet"
+	href="../resources/css/frontend/productdetail.css">
+</head>
+<body>
+	<div class="page-group">
+		<div class="page">
+			<header class="bar bar-nav">
+				<a class="button button-link button-nav pull-left" external
+					href="/buy/frontendadmin/mainpage" > <span
+					class="icon icon-left" ></span> 首页
+				</a>
+				<h1 class="title" id="product-name" style="padding-left:45px;"></h1>
+			</header>
+			<nav class="bar bar-tab">
+				<a class="tab-item external" id="collect" href="#" external> <span
+					class="icon icon-star"></span> <span class="tab-label">收藏</span>
+				</a> <a class="prompt-ok tab-item external" href="#" external> <span
+					class="icon icon-edit"></span> <span class="tab-label">留言</span>
+				</a> <a class="tab-item external confirm-ok"  id="issoldout" href="#" external> <span
+					class="icon icon-cart"></span> <span class="tab-label" id="getproduct"></span>
+				</a>
+			</nav>
+			<div class="content infinite-scroll infinite-scroll-bottom"
+				data-distance="100">
+				<div class="list-block media-list">
+					<ul>
+						<li>
+							<!-- <a href="#" class="item-link item-content" id="sellor-info"> -->
+							<div id="sellor-info">
+								<div class="item-link item-content">
+									<div class="item-media" id="user-profile">
+										<!-- <img src="" width="80"> -->
+									</div>
+									<div class="item-inner">
+										<div class="item-title-row">
+											<div class="item-title" style=" font-size: larger; color: lightskyblue;" id="user-name"></div>
+											<div class="item-after" id="user-phone"></div>
+										</div>
+										<!-- <div class="item-subtitle"> </div> -->
+										<div class="item-text" id="user-desc"></div>
+									</div>
+								</div>
+							</div> <!-- </a> -->
+						</li>
+					</ul>
+				</div>
+				<!-- 这里是页面内容区 -->
+				<div class="product-detail-dev">
+					<div class="card">
+						<div valign="bottom"
+							class="card-header color-white no-border no-padding">
+							<img id="product-img" class='card-cover' src="" alt="">
+						</div>
+						<div class="card-content">
+							<div class="card-content-inner">
+								<p class="color-gray">
+									<span id="product-time">2015/01/15</span>
+								</p>
+								<p id="product-desc"></p>
+							</div>
+						</div>
+						<div class="card-footer" id="footer">
+							<p id="product-addr"></p>
+							<p id="product-price"></p>
+						</div>
+					</div>
+				</div>
+				<!-- 详情图片展示区  -->
+				<div class="list-div" id="imgList"></div>
+				<!-- 用户评论区 --> 
+				<div class="content-block-title" id="comment">留言区</div>
+				<div class="comment-div" id="commentList">
+					<!--  
+					<div class="list-block media-list">
+						<ul>
+							<li>
+								<div class="item-content">
+									<div class="item-media">
+										<img
+											src="http://gqianniu.alicdn.com/bao/uploaded/i4//tfscom/i3/TB10LfcHFXXXXXKXpXXXXXXXXXX_!!0-item_pic.jpg_250x250q60.jpg"
+											style='width: 2.2rem;'>
+									</div>
+									<div class="item-inner">
+										<div class="item-title-row">
+											<div class="item-title">标题</div>
+										</div>
+										<div class="item-subtitle">子标题</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>-->
+				</div>
+			</div>
+		</div>
+ 
+	</div>
+
+	<script type='text/javascript'
+		src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+	<script type='text/javascript'
+		src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+	<script type='text/javascript'
+		src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+	<script type='text/javascript' src='../resources/js/common/common.js'
+		charset='utf-8'></script>
+	<script type='text/javascript'
+		src='../resources/js/frontend/productdetail.js' charset='utf-8'></script> 
+</body>
+</html>

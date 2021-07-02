@@ -1,0 +1,9 @@
+@CHARSET "UTF-8";
+.list-block
+{
+	margin:unset;
+}
+.list-block select
+{
+    width: 70%;
+}

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>登录</title>
+<meta name="description"
+	content="MSUI: Build mobile apps with simple HTML, CSS, and JS components.">
+<meta name="author" content="阿里巴巴国际UED前端">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+
+<!-- Google Web Fonts -->
+
+<link rel="stylesheet"
+	href="//g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+<link rel="stylesheet"
+	href="//g.alicdn.com/msui/sm/0.6.2/css/sm-extend.min.css">
+<link rel="stylesheet" href="../resources/css/local/login.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="apple-touch-icon-precomposed"
+	href="/assets/img/apple-touch-icon-114x114.png">
+
+<script>
+	//ga
+</script>
+<script>
+	var _hmt = _hmt || [];
+	(function() {
+		var hm = document.createElement("script");
+		hm.src = "//hm.baidu.com/hm.js?ba76f8230db5f616edc89ce066670710";
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(hm, s);
+	})();
+</script>
+
+</head>
+<body>
+	<div class="page-group">
+		<div id="page-label-input" class="page">
+			<header class="bar bar-nav">
+				<!-- <a class="button button-link button-nav pull-left" external href="#"
+					data-transition='slide-out' onclick="javascript:history.back(-1);">
+					<span class="icon icon-left"></span> 返回
+				</a>  -->
+				<h1 class="title">登录</h1>
+			</header>
+			<div class="content">
+				<div class="title-block">
+					<img src='https://gss3.bdstatic.com/-Po3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike92%2C5%2C5%2C92%2C30/sign=4267b77e82025aafc73f76999a84c001/359b033b5bb5c9ea86baf25dd539b6003bf3b3c7.jpg'>
+					<h2>南昌大学</h2>
+				</div>
+				<div class="list-block">
+					<ul>
+						<!-- Text inputs -->
+						<li>
+							<div class="item-content">
+								<div class="item-media">
+									<i class="icon icon-card"></i>
+								</div>
+								<div class="item-inner">
+									<div class="item-input">
+										<input type="text" id="user-name" placeholder="用戶名" style="color: white;">
+									</div>
+								</div>
+							</div>
+						</li>
+						<!-- Text inputs -->
+						<li>
+							<div class="item-content">
+								<div class="item-media">
+									<i class="icon icon-edit"></i>
+								</div>
+								<div class="item-inner">
+									<div class="item-input">
+										<input type="password" id="password" placeholder="密碼" style="color: white;">
+									</div>
+								</div>
+							</div>
+						</li>
+
+						<!-- 验证码    kaptcha -->
+						<li id="verifyPart" hidden="true">
+							<div class="item-content">
+								<div class="item-inner">
+									 <div class="item-title label"  style="width:22%">验证码</div> 
+									<input type="text" id="j_kaptcha" placeholder="输入验证码" style="color: white;">
+									<div class="item-input">
+										<img id="kaptcha_img" alt="点击更换" title="点击更换"
+											onclick="changeVerifyCode(this)" src="../Kaptcha">
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="content-block">
+					<div class="row">
+					<!-- 	<div class="col-50">
+							<a href="/#" class="button button-big button-fill button-danger"
+								id="cancel" external>返回</a>
+						</div> -->
+						<div class="col-50 register">
+							<a href="/buy/localadmin/register"  class="button button-big button-fill button-danger" 
+								id="cancle" external>注册</a>
+						</div>
+						<div class="col-50  submit">
+							<a href="#" class="button button-big button-fill button-success"
+								id="submit" external>登录</a>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 	<script type='text/javascript' src='../resources/js/common/zepto.js'
+		charset='utf-8'></script>
+	<script type='text/javascript' src='../resources/js/common/sm.js'
+		charset='utf-8'></script>
+	<script type='text/javascript'
+		src='../resources/js/common/sm-extend.js' 
+		charset='utf-8'></script> -->
+	<script type='text/javascript'
+		src='//g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+	<script type='text/javascript'
+		src='//g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+	<script type='text/javascript'
+		src='//g.alicdn.com/msui/sm/0.6.2/js/sm-extend.min.js' charset='utf-8'></script>
+	<script type="text/javascript" src='../resources/js/common/common.js'
+		charset='utf-8'></script>
+	<script type="text/javascript" src='../resources/js/local/login.js'
+		charset='utf-8'></script>
+
+</body>
+</html>

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <!-- 返回值:com.imooc.o2o.entity.Area -->
+<mapper namespace="com.my.buy.dao.PersonInfoDao">
+	<resultMap type="com.my.buy.entity.PersonInfo" id="userMap">
+		<id column="user_id" property="userId"/>
+		<result column="user_name" property="userName"/> 
+		<result column="user_gender" property="userGender"/>
+		<result column="user_phone" property="userPhone"/>
+		<result column="user_email" property="userEmail"/>
+		<result column="profile_img" property="profileImg"/>
+		<result column="priority" property="priority"/>
+		<result column="user_age" property="userAge"/>
+		<result column="create_time" property="createTime"/>
+		<result column="last_edit_time" property="lastEditTime"/>
+		<result column="user_type" property="userType"/>
+		<result column="user_addr" property="userAddr"/>
+		<result column="password" property="password"/>
+		<result column="enable_status" property="enableStatus"/>
+		<result column="user_desc" property="userDesc"/>
+		<association property="area" column="area_id"
+		javaType="com.my.buy.entity.Area">
+			<id column="area_id" property="areaId"/>
+			<result column="area_name" property="areaName"/>
+		</association>
+	</resultMap>
+	<select id="queryUserById" resultMap="userMap" parameterType="Long">
+		SELECT
+		u.user_id,
+		u.user_name, 
+		u.user_type,
+		u.user_gender,
+		u.user_phone,
+		u.user_email,
+		u.user_addr,
+		u.user_desc,
+		u.user_age,
+		u.password, 
+		u.profile_img,
+		u.create_time,
+		u.last_edit_time,
+		u.enable_status,
+		a.area_id,
+		a.area_name
+		FROM
+		tb_person_info u,
+		tb_area a
+		WHERE
+		a.area_id=u.area_id
+		AND
+		user_id=#{userId}
+	</select>
+	
+	<insert id="insertUser" useGeneratedKeys="true" keyColumn="user_id" 
+	keyProperty="userId" parameterType="com.my.buy.entity.PersonInfo">
+		INSERT
+		INTO
+		tb_person_info(user_name,user_type,user_desc,user_age,password,
+					   user_gender,user_email,user_phone,user_addr,
+					   profile_img,create_time,last_edit_time,
+					   enable_status,area_id)
+		VALUES(#{userName},#{userType},#{userDesc},#{userAge},#{password},
+				 #{userGender},#{userEmail},#{userPhone},#{userAddr},
+				 #{profileImg},#{createTime},#{lastEditTime},
+				 #{enableStatus},#{area.areaId})
+	</insert>
+	
+	<update id="updateUser" parameterType="com.my.buy.entity.PersonInfo">
+		UPDATE
+		tb_person_info
+		<set>
+			<if test="userName!=null">user_name=#{userName},</if>
+			<if test="userDesc!=null">user_desc=#{userDesc},</if>
+			<if test="userGender!=null">user_gender=#{userGender},</if>
+			<if test="userEmail!=null">user_email=#{userEmail},</if>
+			<if test="userPhone!=null">user_phone=#{userPhone},</if>
+			<if test="userAddr!=null">user_addr=#{userAddr},</if> 
+			<if test="userAge!=null">user_age=#{userAge},</if>
+			<if test="profileImg!=null">profile_img=#{profileImg},</if>
+			<if test="userType!=null">user_type=#{userType},</if>
+			<if test="enableStatus!=null">enable_status=#{enableStatus},</if>
+			<if test="lastEditTime!=null">last_edit_time=#{lastEditTime},</if>
+			<if test="area!=null and area.areaId!=null">area_id=#{area.areaId}</if>
+		</set>
+		WHERE
+		user_id=#{userId}
+	</update>
+	<update id="updateUserPwd" parameterType="Long">
+		UPDATE tb_person_info
+ 		<set>
+ 			<if test="newPassword!=null">password=#{newPassword},</if>
+ 			<if test="lastEditTime!=null">last_edit_time=#{lastEditTime}</if>
+ 		</set>
+ 		WHERE user_id=#{userId}
+ 		AND
+ 		user_name=#{userName}
+ 		AND
+ 		password=#{password}
+	</update>
+	 <select id="queryUserByNameAndPwd" resultMap="userMap">
+		SELECT
+		u.user_id,
+		u.user_name, 
+		u.user_type,
+		u.user_gender,
+		u.user_phone,
+		u.user_email,
+		u.user_addr,
+		u.user_desc,
+		u.user_age,
+		u.password, 
+		u.profile_img,
+		u.create_time,
+		u.last_edit_time,
+		u.enable_status,
+		a.area_id,
+		a.area_name
+		FROM
+		tb_person_info u,
+		tb_area a
+		WHERE
+		a.area_id=u.area_id
+		AND
+		u.user_name=#{userName}
+		AND
+		u.password=#{password}
+	</select>
+	<select id="queryUserByName" resultType="com.my.buy.entity.PersonInfo">
+		SELECT * FROM tb_person_info WHERE user_name=#{userName}
+	</select>
+	<select id="queryUserList" resultMap="userMap">
+		SELECT
+		u.user_id,
+		u.user_name, 
+		u.user_type,
+		u.user_gender,
+		u.user_phone,
+		u.user_email,
+		u.user_addr,
+		u.user_desc,
+		u.user_age,
+		u.password, 
+		u.profile_img,
+		u.create_time,
+		u.last_edit_time,
+		u.enable_status, 
+		a.area_id,
+		a.area_name
+		FROM
+		tb_person_info u,
+		tb_area a
+		<where>
+			<if test="userCondition!=null and userCondition.userName!=null">
+				and u.user_name like '%${userCondition.userName}%' <!-- =#{userCondition.userName} -->
+			</if>
+			<if test="userCondition!=null and userCondition.enableStatus!=null">
+				and u.enable_status=#{userCondition.enableStatus}
+			</if>
+			<if test="userCondition!=null and userCondition.area!=null and userCondition.area.areaId!=null">
+				and a.area_id=#{userCondition.area.areaId}
+			</if>
+			and a.area_id=u.area_id
+		</where>  
+		ORDER BY
+		u.create_time DESC 
+		LIMIT #{rowIndex},#{pageSize};
+	</select>
+	
+	<select id="queryUserCount" resultType="int">
+		SELECT
+		count(1)
+		FROM
+		tb_person_info u
+		<where>
+			<if test="userCondition!=null and userCondition.userName!=null">
+				and u.user_name=#{userCondition.userName}
+			</if>
+			<if test="userCondition!=null and userCondition.enableStatus!=null">
+				and u.enable_status=#{userCondition.enableStatus}
+			</if>
+			<if test="userCondition!=null and userCondition.area!=null and userCondition.area.areaId!=null">
+				and a.area_id=#{userCondition.area.areaId}
+			</if> 
+		</where> 
+	</select>
+</mapper>

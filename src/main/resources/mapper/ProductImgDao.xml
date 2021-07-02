@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.my.buy.dao.ProductImgDao">
+	<insert id="batchInsertProductImg" parameterType="java.util.List">
+		INSERT INTO
+		tb_product_img(img_addr,img_desc,priority,create_time,product_id)
+		VALUES
+		<!--  以 productImg为变量去遍历list中元素,index为计数器，separate为分隔符--> 
+		<foreach collection="list" item="productImg" index="index" separator=",">
+		(
+			#{productImg.imgAddr},
+			#{productImg.imgDesc},
+			#{productImg.priority},
+			#{productImg.createTime}, 
+			#{productImg.productId}
+		)
+		</foreach>
+	</insert>
+	
+	<select id="queryProductImgList" parameterType="Long" 
+		resultType="com.my.buy.entity.ProductImg">
+		SELECT
+		img_addr,
+		img_desc,
+		priority,
+		create_time,
+		product_id
+		FROM
+		tb_product_img
+		WHERE
+		product_id=#{productId}
+	</select>
+	
+	<update id="updateProductImg" parameterType="java.util.List">
+		UPDATE tb_product_img
+		<set>
+		<foreach collection="list" item="productImg" index="index" separator=",">
+		 	<if test="productImg.imgAddr!=null">img_addr=#{productImg.imgAddr}</if>
+		 		<!--  
+		 		<if test="productImg.imgDesc!=null">img_desc=#{productImg.imgDesc}</if>
+		 		<if test="productImg.lastEditTime!=null">last_edit_time=#{productImg.lastEditTime}</if>	
+		 		--> 	
+		</foreach>
+		where product_id=#{productImg.productId}
+		</set>
+	</update>
+	
+	<delete id="deleteProductImgByProductId">
+		DELETE FROM
+		tb_product_img
+		WHERE
+		product_id=#{productId}
+	</delete>
+</mapper>

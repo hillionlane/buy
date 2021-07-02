@@ -1,0 +1,78 @@
+.index-banner {
+    height: 35%;
+    padding-bottom: 0.4rem;
+}
+.swiper-container
+{
+	height: 300px;
+}
+.img-wrap {
+    overflow: hidden;
+}
+.banner-img {
+    width: 100%;
+    height: 100%;
+}
+.total-product-button {
+    height: 1.5rem;
+    line-height: 1.5rem;
+    padding-left: 0.85rem;
+    margin-bottom: 0.4rem;
+    position: relative;
+    cursor: pointer;
+}
+.total-product-button:before {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    width: 0.15rem;
+    height: 1.5rem;
+    background-color: #0894ec;
+}
+ 
+ 
+.product-classify {
+    height: 3.7rem;
+    padding: 0.3rem;
+    cursor: pointer;
+}
+.product-classify > .word {
+    width: 60%;
+    height: 100%;
+    overflow: hidden;
+    float: left;
+}
+.product-classify > .word > p {
+    margin: 0;
+}
+.product-classify > .word > .product-title {
+    margin: 0;
+    font-size: 0.8rem;
+}
+.product-classify > .word > .product-desc {
+    margin: 0;
+    font-size: 0.5rem;
+}
+
+.product-classify > .product-classify-img-wrap {
+    width: 35%;
+    height: 100%;
+    margin-left: 0.2rem;
+    overflow: hidden;
+    display: inline-block;
+}
+.product-classify > .product-classify-img-wrap > .product-img {
+     width: 100%;
+     height: 100%;
+     margin-left: 0.2rem;
+     display: inline-block;
+}
+.list-block .item-inner
+{
+	 border-bottom: 0.1px solid #e5e5e5;
+}
+.list-block .item-media+.item-inner
+{
+	margin-right: .35rem;
+}

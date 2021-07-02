@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.buy.dao.OrderDao">
+	<resultMap type="com.my.buy.entity.Order" id="orderMap">
+		<id column="order_id" property="orderId"/>
+		<result column="create_time" property="createTime"/>
+		<result column="last_edit_time" property="lastEditTime"/>
+		<result column="order_status" property="orderStatus"/>
+		<result column="order_type" property="orderType"/>
+		<result column="enable_status" property="enableStatus"/>
+		<result column="order_comment" property="orderComment"/>
+		<result column="comment_time" property="commentTime"/>
+		<association property="user" column="user_id"
+			javaType="com.my.buy.entity.PersonInfo">
+			<id column="user_Id" property="userId"/>
+			<result column="user_name" property="userName"/>
+			<result column="profile_img" property="profileImg"/>
+		</association>
+		<association property="product" column="product_id"
+			javaType="com.my.buy.entity.Product">
+			<id column="product_id" property="productId"/>
+			<result column="product_price" property="productPrice"/>
+			<result column="product_name" property="productName"/>
+			<result column="product_img" property="productImg"/>
+			<result column="product_desc" property="productDesc"/>		
+		</association>
+	</resultMap>
+	
+	<insert id="insertOrder" useGeneratedKeys="true" keyColumn="order_id"
+	keyProperty="orderId" parameterType="com.my.buy.entity.Order">
+		INSERT
+		INTO
+		tb_order(product_id,user_id, 
+				 create_time,last_edit_time,order_status,
+				 order_type,enable_status,order_comment,comment_time)
+		VALUES(#{product.productId},#{user.userId}, 
+			   #{createTime},#{lastEditTime},#{orderStatus},
+			   #{orderType},#{enableStatus},#{orderComment},#{commentTime})
+	</insert>
+	
+	<update id="updateOrder" parameterType="com.my.buy.entity.Order" 
+	useGeneratedKeys="true"  keyProperty="orderId">
+		UPDATE tb_order
+		<set>
+			<if test="orderStatus!=null">order_status=#{orderStatus},</if>
+			<if test="lastEditTime!=null">last_edit_time=#{lastEditTime},</if>
+			<if test="enableStatus!=null">enable_status=#{enableStatus},</if>
+			<if test="orderComment!=null">order_comment=#{orderComment},</if>
+			<if test="commentTime!=null">comment_time=#{commentTime}</if>
+		</set>
+		where
+		order_id=#{orderId}
+	</update>
+	
+	<select id="queryOrderById" resultMap="orderMap">
+		SELECT
+		o.order_id, 
+		o.create_time,
+		o.last_edit_time,
+		o.order_status,
+		o.order_type,
+		o.enable_status,
+		o.order_comment,
+		o.comment_time,
+		u.user_id,
+		u.user_name,
+		u.profile_img,
+		p.product_id,
+		p.product_name,
+		p.product_img,
+		p.product_price,
+		p.product_desc
+		FROM
+		tb_order o,
+		tb_person_info u,
+		tb_product p
+		WHERE
+		o.user_id=u.user_id
+		AND
+		o.product_id=p.product_id 
+		AND
+		o.order_id=#{orderId}
+	</select>
+	
+	<select id="queryOrderList" resultMap="orderMap">
+		SELECT
+		o.order_id, 
+		o.create_time,
+		o.last_edit_time,
+		o.order_status,
+		o.order_type,
+		o.enable_status,
+		o.order_comment,
+		o.comment_time,
+		u.user_id,
+		u.user_name,
+		u.profile_img,
+		p.product_id,
+		p.product_name,
+		p.product_img,
+		p.product_price,
+		p.product_desc
+		FROM
+		tb_order o,
+		tb_person_info u,
+		tb_product p
+		<where>
+			<if test="orderCondition!=null and orderCondition.user!=null and orderCondition.user.userId!=null"> 
+				and u.user_id=#{orderCondition.user.userId}
+			</if>
+			<!-- (orderCondition.orderType==1 or orderCondition.orderType==2) -->
+			<if test="orderCondition!=null and orderCondition.orderType!=null"> 
+				and o.order_type=#{orderCondition.orderType} 
+			</if> 
+			<!-- (orderCondition.orderStatus==0 or
+				(orderCondition.orderStatus==1 or (orderCondition.orderStatus==2 or
+				 (orderCondition.orderStatus==3 or orderCondition.orderStatus==4)))) -->
+			<if test="orderCondition!=null and orderCondition.orderStatus!=null"> 
+				and o.order_status=#{orderCondition.orderStatus} 
+			</if> 
+			<!-- (orderCondition.enableStatus==0 or orderCondition.enableStatus==1) -->
+			<if test="orderCondition!=null and orderCondition.enableStatus!=null">
+				and o.enable_status=#{orderCondition.enableStatus}
+			</if>
+			AND
+			o.product_id=p.product_id 
+			AND
+			o.user_id=u.user_id 
+		</where>
+		ORDER BY
+		o.create_time DESC 
+		LIMIT #{rowIndex},#{pageSize};
+	</select>
+	
+	<delete id="deleteOrder" parameterType="Long">
+		DELETE
+		FROM
+		tb_order
+		WHERE
+		order_id=#{orderId}
+	</delete>
+	
+	<select id="queryOrderCount" resultType="int">
+		SELECT
+		COUNT(1)
+		FROM
+		tb_order o,
+		tb_person_info u,
+		tb_product p
+		<where>
+			<if test="orderCondition!=null and orderCondition.user!=null and orderCondition.user.userId!=null"> 
+				and u.user_id=#{orderCondition.user.userId}
+			</if>
+			<!-- (orderCondition.orderType==1 or orderCondition.orderType==2) -->
+			<if test="orderCondition!=null and orderCondition.orderType!=null"> 
+				and o.order_type=#{orderCondition.orderType} 
+			</if> 
+			<!-- (orderCondition.orderStatus==0 or
+				(orderCondition.orderStatus==1 or (orderCondition.orderStatus==2 or
+				 (orderCondition.orderStatus==3 or orderCondition.orderStatus==4)))) -->
+			<if test="orderCondition!=null and orderCondition.orderStatus!=null"> 
+				and o.order_status=#{orderCondition.orderStatus} 
+			</if> 
+			<!-- (orderCondition.enableStatus==0 or orderCondition.enableStatus==1) -->
+			<if test="orderCondition!=null and orderCondition.enableStatus!=null">
+				and o.enable_status=#{orderCondition.enableStatus}
+			</if>
+			AND
+			o.product_id=p.product_id 
+			AND
+			o.user_id=u.user_id 
+		</where>
+	</select>
+	
+	<select id="queryOrderByProductIdAndUserId" resultMap="orderMap">
+		SELECT
+		o.order_id, 
+		o.create_time,
+		o.last_edit_time,
+		o.order_status,
+		o.order_type,
+		o.enable_status,
+		o.order_comment,
+		o.comment_time,
+		u.user_id,
+		u.user_name,
+		u.profile_img,
+		p.product_id,
+		p.product_name,
+		p.product_img,
+		p.product_price,
+		p.product_desc
+		FROM
+		tb_order o,
+		tb_person_info u,
+		tb_product p
+		WHERE
+		o.user_id=u.user_id
+		AND
+		o.product_id=p.product_id
+		AND
+		p.product_id=#{productId}
+		AND
+		u.user_id=#{userId}
+	</select>
+	
+	<select id="queryOrdersByProductId" resultMap="orderMap" parameterType="Long">
+		SELECT
+		o.order_id, 
+		o.create_time,
+		o.last_edit_time,
+		o.order_status,
+		o.order_type,
+		o.enable_status,
+		o.order_comment,
+		o.comment_time,
+		u.user_id,
+		u.user_name,
+		u.profile_img,
+		p.product_id,
+		p.product_name,
+		p.product_img,
+		p.product_price,
+		p.product_desc
+		FROM
+		tb_order o,
+		tb_person_info u,
+		tb_product p
+		WHERE
+		o.user_id=u.user_id
+		AND
+		o.product_id=p.product_id
+		AND
+		p.product_id=#{productId} 
+	</select>
+	
+	<select id="queryMyCommentOrderList" resultMap="orderMap">
+		SELECT
+		o.order_id, 
+		o.create_time,
+		o.last_edit_time,
+		o.order_status,
+		o.order_type,
+		o.enable_status,
+		o.order_comment,
+		o.comment_time,
+		u.user_id,
+		u.user_name,
+		u.profile_img,
+		p.product_id,
+		p.product_name,
+		p.product_img,
+		p.product_price,
+		p.product_desc
+		FROM
+		tb_order o,
+		tb_person_info u,
+		tb_product p
+		WHERE
+		p.product_id IN
+		<foreach collection="productIdList" item="productId" open="("
+			separator="," close=")">
+			#{productId}
+		</foreach>
+		AND
+		o.user_id!=#{userId}
+		AND
+		o.user_id=u.user_id
+		AND
+		o.product_id=p.product_id
+		AND
+		o.order_comment is not null
+	</select>
+	
+	<select id="queryProductListByUserId" parameterType="Long" resultType="Long">
+		SELECT
+		p.product_id
+		FROM
+		tb_order o,
+		tb_person_info u,
+		tb_product p
+		WHERE
+		o.user_id=u.user_id
+		AND
+		o.product_id=p.product_id
+		AND
+		o.user_id=#{userId}
+	</select>
+</mapper>

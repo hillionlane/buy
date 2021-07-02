@@ -1,0 +1,6 @@
+/*!
+ * =====================================================
+ * SUI Mobile - http://m.sui.taobao.org/
+ *
+ * =====================================================
+ */.photo-browser{position:absolute;left:0;top:0;width:100%;height:100%;z-index:10500}.photo-browser .bar-tab .tab-item .icon{width:.7rem;height:.7rem;margin-top:-.25rem}.photo-browser .bar-tab~.photo-browser-captions{bottom:2.6rem;-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}.photo-browser.photo-browser-in{display:block;-webkit-animation:photoBrowserIn .4s forwards;animation:photoBrowserIn .4s forwards}.photo-browser.photo-browser-out{display:block;-webkit-animation:photoBrowserOut .4s forwards;animation:photoBrowserOut .4s forwards}html.with-statusbar-overlay .photo-browser{height:-webkit-calc(100% - 1rem);height:calc(100% - 1rem);top:1rem}.popup>.photo-browser .navbar,.popup>.photo-browser .toolbar,body>.photo-browser .navbar,body>.photo-browser .toolbar{-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0)}.photo-browser .page[data-page=photo-browser-slides]{background:0 0}.photo-browser .page{box-sizing:border-box;position:absolute;left:0;top:0;width:100%;height:100%;background:#efeff4}.photo-browser .view{overflow:hidden;box-sizing:border-box;position:relative;width:100%;height:100%;z-index:5000}.page[data-page=photo-browser-slides] .toolbar a{color:#4cd96

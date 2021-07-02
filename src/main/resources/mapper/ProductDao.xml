@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <!-- 实现shopcategorydao这个接口中的方法 -->
+<mapper namespace="com.my.buy.dao.ProductDao">
+	<resultMap type="com.my.buy.entity.Product" id="productMap">
+		<id column="product_id" property="productId"/>
+		<result column="product_name" property="productName"/>
+		<result column="product_desc" property="productDesc"/>
+		<result column="product_img" property="productImg"/>
+		<result column="product_price" property="productPrice"/>
+		<result column="priority" property="priority"/>
+		<result column="create_time" property="createTime"/>
+		<result column="last_edit_time" property="lastEditTime"/>
+		<result column="enable_status" property="enableStatus"/>
+		<association property="productCategory" column="product_category_id"
+		 javaType="com.my.buy.entity.ProductCategory">
+		 	<id column="product_category_id" property="productCategoryId"/>
+			<result column="product_category_name" property="productCategoryName"/>
+		</association>
+		<association property="personInfo" column="user_id"
+		javaType="com.my.buy.entity.PersonInfo">
+			<id column="user_id" property="userId"/>
+			<result column="user_name" property="userName"/>
+		</association>
+		<association property="area" column="area_id"
+		javaType="com.my.buy.entity.Area">
+			<id column="area_id" property="areaId"/>
+			<result column="area_name" property="areaName"/>
+		</association>
+		<collection property="productImgList" column="product_id"
+		ofType="com.my.buy.entity.ProductImg">
+			<id column="product_img_id" property="productImgId"/>
+			<result column="img_addr" property="imgAddr"/>
+			<result column="img_desc" property="imgDesc"/>
+			<result column="priority" property="priority"/>
+			<result column="create_time" property="createTime"/>
+			<result column="last_edit_time" property="lastEditTime"/>
+			<result column="product_id" property="productId"/>
+		</collection>
+	</resultMap>
+	
+	<select id="queryProductById" resultMap="productMap" parameterType="Long">
+		SELECT
+		p.product_id,
+		p.product_name,
+		p.product_desc,
+		p.product_price,
+		p.product_img,
+		p.priority,
+		p.create_time,
+		p.last_edit_time,
+		p.enable_status, 
+		p.product_category_id,
+		p.user_id,
+		p.area_id,
+		pm.product_img_id,
+		pm.img_addr,
+		pm.img_desc,
+		pm.priority,
+		pm.create_time 
+		FROM
+		tb_product p
+		LEFT JOIN
+		tb_product_img pm
+		ON
+		p.product_id=pm.product_id
+		WHERE
+		p.product_id=#{productId}
+		ORDER BY pm.priority DESC
+	</select>
+	
+	<select id="queryProductList" resultMap="productMap">
+		SELECT  
+		p.product_id,
+		p.product_name,
+		p.product_desc,
+		p.product_price,
+		p.product_img,
+		p.priority,
+		p.create_time,
+		p.last_edit_time,
+		p.enable_status,
+		p.user_id,
+		u.user_id,
+		u.user_name,
+		p.area_id,
+		a.area_id,
+		a.area_name,
+		p.product_category_id,		
+		pc.product_category_id,
+		pc.product_category_name
+		FROM
+		tb_product p,
+		tb_area a,
+		tb_person_info u,
+		tb_product_category pc
+		<where>
+			<if test="productCondition!=null and 
+			productCondition.productCategory!=null and 
+			productCondition.productCategory.productCategoryId!=null">
+			 and p.product_category_id=#{productCondition.productCategory.productCategoryId}
+			</if>
+			<!-- 取出某一级类别下的所有商品列表 -->
+			<if test="productCondition!=null and 
+			productCondition.productCategory!=null 
+			and productCondition.productCategory.parent!=null
+			and productCondition.productCategory.parent.productCategoryId!=null">
+				and p.product_category_id in(select product_category_id from tb_product_category
+				WHERE parent_id=#{productCondition.productCategory.parent.productCategoryId})
+			</if>
+			<if test="productCondition!=null and 
+			productCondition.productName!=null">
+				and p.product_name like '%${productCondition.productName}%'
+			</if>
+			<!-- 通过用户Id查询商品列表 -->
+			<if test="productCondition!=null and
+			productCondition.personInfo!=null and
+			productCondition.personInfo.userId!=null">
+				and p.user_id=#{productCondition.personInfo.userId}
+			</if>
+			<!-- 同一地区的商品 -->
+			 <if test="productCondition!=null and
+			 productCondition.area!=null and
+			 productCondition.area.areaId!=null">
+			 	and p.area_id=#{productCondition.area.areaId}
+			 </if>
+			<if test="productCondition!=null and 
+			productCondition.enableStatus!=null">
+				and p.enable_status=#{productCondition.enableStatus}
+			</if>
+			AND a.area_id=p.area_id
+			AND u.user_id=p.user_id
+			AND pc.product_category_id=p.product_category_id
+		</where>
+		ORDER BY
+		p.priority DESC
+		LIMIT #{rowIndex},#{pageSize};
+	</select>
+	<select id="queryProductCount" resultType="int">
+		SELECT
+		count(1)
+		FROM
+		tb_product p
+		<where>
+			<if test="productCondition!=null and 
+			productCondition.productCategory!=null and 
+			productCondition.productCategory.productCategoryId!=null">
+			 and p.product_category_id=#{productCondition.productCategory.productCategoryId}
+			</if>
+			<!-- 取出某一级类别下的所有商品列表 -->
+			<if test="productCondition!=null and 
+			productCondition.productCategory!=null 
+			and productCondition.productCategory.parent!=null
+			and productCondition.productCategory.parent.productCategoryId!=null">
+				and p.product_category_id in(select product_category_id from tb_product_category
+				WHERE parent_id=#{productCondition.productCategory.parent.productCategoryId})
+			</if>
+			<if test="productCondition!=null and 
+			productCondition.productName!=null">
+				and p.product_name like '%${productCondition.productName}%'
+			</if>
+			<!-- 通过用户Id查询商品列表 -->
+			<if test="productCondition!=null and
+			productCondition.personInfo!=null and
+			productCondition.personInfo.userId!=null">
+				and p.user_id=#{productCondition.personInfo.userId}
+			</if>
+			<!-- 同一地区的商品 -->
+			 <if test="productCondition!=null and
+			 productCondition.area!=null and
+			 productCondition.area.areaId!=null">
+			 	and p.area_id=#{productCondition.area.areaId}
+			 </if>
+			<if test="productCondition!=null and 
+			productCondition.enableStatus!=null">
+				and p.enable_status=#{productCondition.enableStatus}
+			</if>
+		</where>
+		ORDER BY
+		p.priority DESC
+	</select>
+	
+	<insert id="insertProduct" useGeneratedKeys="true" keyColumn="product_id"
+	keyProperty="productId" parameterType="com.my.buy.entity.Product">
+		INSERT
+		INTO
+		tb_product(product_name,product_desc,product_img,
+				   product_price,priority,create_time,
+				   last_edit_time,enable_status,product_category_id,
+				   area_id,user_id)
+		VALUES(#{productName},#{productDesc},#{productImg},
+			   #{productPrice},#{priority},#{createTime},
+			   #{lastEditTime},#{enableStatus},#{productCategory.productCategoryId},
+			   #{area.areaId},#{personInfo.userId})
+	</insert>
+	
+	<update id="updateProduct" parameterType="com.my.buy.entity.Product"
+	useGeneratedKeys="true"  keyProperty="productId" >
+		UPDATE tb_product
+		<set>
+			<if test="productName!=null">product_name=#{productName},</if>
+			<if test="productDesc!=null">product_desc=#{productDesc},</if>
+			<if test="productImg!=null">product_img=#{productImg},</if>
+			<if test="productPrice!=null">product_price=#{productPrice},</if>
+			<if test="priority!=null">priority=#{priority},</if>
+			<if test="lastEditTime!=null">last_edit_time=#{lastEditTime},</if>
+			<if test="enableStatus!=null">enable_status=#{enableStatus},</if>
+			<if test="productCategory!=null and productCategory.productCategoryId!=null">
+				product_category_id=#{productCategory.productCategoryId}
+			</if>
+		</set>
+		where
+		product_id=#{productId}
+	</update>
+	
+	<delete id="deleteProductByProductId" parameterType="Long">
+		DELETE 
+		FROM tb_product
+		WHERE 
+		product_id=#{productId}	
+	</delete>
+</mapper>

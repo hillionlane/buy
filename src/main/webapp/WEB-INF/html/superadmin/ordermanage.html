@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>订单管理</title>
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<link rel="shortcut icon" href="/favicon.ico">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="stylesheet" type="text/css"
+	href="../resources/js/superadmin/common/easyui/themes/bootstrap/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="../resources/js/superadmin/common/easyui/themes/icon.css">
+<script type="text/javascript"
+	src="../resources/js/superadmin/common/jquery.min.js"></script>
+<script type="text/javascript"
+	src="../resources/js/superadmin/common/easyui/js/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="../resources/js/superadmin/common/easyui/js/easyui-lang-zh_CN.js"></script>
+<link rel="stylesheet"
+	href="../resources/css/superadmin/common/tooltip-form-style.css"></link>
+<link rel="stylesheet"
+	href="../resources/css/superadmin/commoncss.css"></link> 
+<script type="text/javascript" src='../resources/js/common/common.js'
+		charset='utf-8'></script> 
+<script type="text/javascript"
+	src="../resources/js/superadmin/common/easyui/js/commonutil.js"></script>	 
+<script type="text/javascript"
+	src="../resources/js/superadmin/common/errorhandle.js"></script>
+<script type="text/javascript"
+	src="../resources/js/superadmin/ordermanage.js" charset="utf-8"></script>
+</head>
+
+<body>
+	<!-- 表格 -->
+	<table id="orderManagementTable" title="订单信息一览" border="0"
+		cellspacing="0" cellpadding="0" iconCls="icon-edit" width="100%"
+		idField="orderId" pagination="true" remoteSort="false"
+		singleSelect="false" showFooter="false" striped="true">
+		<thead>
+			<tr align="center">
+				<th field="ck" width="20" checkbox="true" width="20"></th>
+				<th field="orderId" width="50">订单Id</th>
+				<th field="orderStatus" width="100" formatter="orderStatusFormater">订单状态</th>
+				<th field="user" width="100" formatter="userFormatter">订单用户</th>
+				<th field="product" width="100" formatter="productFormatter">订单商品</th>
+				<th field="orderType" width="100"  formatter="orderTypeFormater">订单类型</th>
+				<th field="enableStatus" width="50">状态</th>
+				<th field="createTime" width="150" formatter="createTimeFormater">创建时间</th>
+				<th field="lastEditTime" width="150" formatter="lastEditTimeFormater">最近修改时间</th> 
+				<th field="commentTime" width="150" formatter="commentTimeFormater">评论时间</th>
+				<th field="orderComment" width="200">订单评论</th> 
+			</tr>
+		</thead>
+	</table>
+ 
+	  
+	<!-- Hidden value area -->
+	<input id="orderStatusHd" type="hidden" value="ALL" />
+	<input id="orderTypeHd" type="hidden" value="ALL" />
+	<input id="urlHd" type="hidden" value="listOrders" />
+</body>
+</html>

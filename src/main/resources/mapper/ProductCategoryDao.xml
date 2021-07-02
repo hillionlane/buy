@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <!-- 实现productcategorydao这个接口中的方法 -->
+<mapper namespace="com.my.buy.dao.ProductCategoryDao">
+  <resultMap type="com.my.buy.entity.ProductCategory" id="productCategoryMap">
+	<id column="product_category_id" property="productCategoryId"/>
+	<result column="product_category_name" property="productCategoryName"/>
+	<result column="product_category_img" property="productCategoryImg"/>
+	<result column="product_category_desc" property="productCategoryDesc"/>
+	<result column="priority" property="priority"/>
+	<result column="create_time" property="createTime"/>
+	<result column="last_edit_time" property="lastEditTime"/>
+	<association property="parent" column="parent_id" javaType="com.my.buy.entity.ProductCategory">
+		<id column="parentCate_id" property="productCategoryId"/>
+		<result column="parentCate_name" property="productCategoryName"/>
+	</association>
+</resultMap>  
+	<select id="queryAllProductCategoryList" resultMap="productCategoryMap">
+	 	SELECT
+		p1.product_category_id,
+		p1.product_category_name,
+	    p1.product_category_desc,
+		p1.product_category_img,
+		p1.priority,
+		p1.create_time,
+		p1.last_edit_time,
+		p1.parent_id,
+		p2.product_category_id AS parentCate_id,
+		p2.product_category_name AS parentCate_name
+		FROM 
+		tb_product_category p1
+		LEFT JOIN
+		tb_product_category p2 
+		ON p1.parent_id=p2.product_category_id
+		order by priority DESC
+		LIMIT #{rowIndex},#{pageSize};
+	</select>
+	<select id="queryAllProductCategoryCount" resultType="int">
+		SELECT
+		count(1)
+		FROM
+		tb_product_category p1
+		ORDER BY
+		priority DESC
+	</select>
+	<select id="queryProductCategoryList"  resultMap="productCategoryMap" >
+		SELECT
+		p1.product_category_id,
+		p1.product_category_name,
+	    p1.product_category_desc,
+		p1.product_category_img,
+		p1.priority,
+		p1.create_time,
+		p1.last_edit_time,
+		p1.parent_id,
+		p2.product_category_id AS parentCate_id,
+		p2.product_category_name AS parentCate_name
+		FROM 
+		tb_product_category p1
+		LEFT JOIN
+		tb_product_category p2 
+		ON p1.parent_id=p2.product_category_id 
+		<where> 
+			<!-- 当传入的productCategory为空时（即查询一级类别） -->
+			<if test="productCategoryCondition==null">
+				and p1.parent_id is null
+			</if> 
+			<!-- 当传入的productCategory不为空时（即查询所有二级类别） -->
+			<if test="productCategoryCondition!=null">
+				and p1.parent_id is not null
+			</if>
+			<!-- 当传入的productCategory不为空，且其parentId不为空时（即查询指定parentId的二级类别） -->
+			<if test="productCategoryCondition!=null and productCategoryCondition.parent!=null">
+				and p1.parent_id=#{productCategoryCondition.parent.productCategoryId}
+			</if> 
+		</where>
+		order by priority DESC
+		LIMIT #{rowIndex},#{pageSize};
+	</select>
+	<select id="queryproductCategoryCount" resultType="int">
+		SELECT
+		count(1)
+		FROM
+		tb_product_category p1
+		<where> 
+			<!-- 当传入的productCategory为空时（即查询一级类别） -->
+			<if test="productCategoryCondition==null">
+				and p1.parent_id is null
+			</if> 
+			<!-- 当传入的productCategory不为空时（即查询所有二级类别） -->
+			<if test="productCategoryCondition!=null">
+				and p1.parent_id is not null
+			</if>
+			<!-- 当传入的productCategory不为空，且其parentId不为空时（即查询指定parentId的二级类别） -->
+			<if test="productCategoryCondition!=null and productCategoryCondition.parent!=null">
+				and p1.parent_id=#{productCategoryCondition.parent.productCategoryId}
+			</if> 
+		</where>
+		ORDER BY
+		priority DESC 
+	</select>
+	<select id="queryProductCategoryById" resultMap="productCategoryMap"><!-- resultType="com.my.buy.entity.ProductCategory"> -->
+		<!-- SELECT
+		product_category_id,
+		product_category_name,
+	    product_category_desc,
+		product_category_img,
+		priority,
+		create_time,
+		last_edit_time,
+		parent_id
+		FROM
+		tb_product_category -->
+		SELECT
+		p1.product_category_id,
+		p1.product_category_name,
+	    p1.product_category_desc,
+		p1.product_category_img,
+		p1.priority,
+		p1.create_time,
+		p1.last_edit_time,
+		p1.parent_id,
+		p2.product_category_id AS parentCate_id,
+		p2.product_category_name AS parentCate_NAME
+		FROM 
+		tb_product_category p1
+		LEFT JOIN
+		tb_product_category p2 
+		ON p1.parent_id=p2.product_category_id
+		WHERE
+		p1.product_category_id=#{productCategoryId}
+	</select>
+	
+	<select id="queryProductCategoryByIds" resultMap="productCategoryMap">
+		SELECT
+		p1.product_category_id,
+		p1.product_category_name,
+	    p1.product_category_desc,
+		p1.product_category_img,
+		p1.priority,
+		p1.create_time,
+		p1.last_edit_time,
+		p1.parent_id,
+		p2.product_category_id AS parentCate_id,
+		p2.product_category_name AS parentCate_NAME
+		FROM 
+		tb_product_category p1
+		LEFT JOIN
+		tb_product_category p2 
+		ON p1.parent_id=p2.product_category_id
+		WHERE p1.product_category_id IN
+		<foreach collection="list" item="productCategoryId" open="(" separator="," close=")">
+			#{productCategoryId}
+		</foreach>
+	</select>
+	
+	<select id="queryProductCategoryListCount" resultType="int">
+		SELECT
+		COUNT(1)
+		FROM
+		tb_product_category
+		WHERE product_category_id IN
+		<foreach collection="list" item="productCategoryId" open="(" separator="," close=")">
+			#{productCategoryId}
+		</foreach>
+	</select>
+	
+	<insert id="insertProductCategory" useGeneratedKeys="true"
+		keyProperty="productCategoryId" keyColumn="product_category_id">
+		INSERT INTO
+		tb_product_category(product_category_name,product_category_desc,
+							product_category_img,priority,create_time,
+							last_edit_time,parent_id)
+		VALUES
+		(#{productCategoryName},#{productCategoryDesc},
+		 #{productCategoryImg},#{priority},#{createTime},
+		 #{lastEditTime},#{parent.productCategoryId})
+	</insert>
+	
+	<update id="updateProductCategory" parameterType="com.my.buy.entity.ProductCategory">
+		update tb_product_category
+		<set>
+			<if test="productCategoryName!=null">product_category_name=#{productCategoryName},</if> 
+			<if test="productCategoryDesc != null">product_category_desc=#{productCategoryDesc},</if>
+			<if test="productCategoryImg != null">product_category_img=#{productCategoryImg},</if>
+			<if test="priority != null">priority=#{priority},</if>
+			<if test="lastEditTime != null">last_edit_time=#{lastEditTime},</if>
+			<if test="parent!=null and parent.productCategoryId!= null">parent_id=#{parent.productCategoryId}</if>
+		</set>
+		where product_category_id=#{productCategoryId}
+	</update>
+	
+	<delete id="deleteProductCategory">
+		DELETE FROM
+		tb_product_category
+		WHERE
+		product_category_id =
+		#{productCategoryId}
+	</delete>
+	
+	<delete id="batchDeleteProductCategory" parameterType="long">
+		DELETE FROM
+		tb_product_category
+		WHERE product_category_id IN
+		<foreach collection="list" item="productCategoryId" open="("
+			separator="," close=")">
+			#{productCategoryId}
+		</foreach>
+	</delete>
+</mapper>

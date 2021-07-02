@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.buy.dao.CommentDao">
+	<resultMap type="com.my.buy.entity.Comment" id="commentMap">
+		<id column="comment_id" property="commentId"/>
+		<result column="comment_content" property="content"/>
+		<result column="status" property="status"/>
+		<result column="product_id" property="productId"/>
+		<result column="create_time" property="createTime"/>
+		<association property="user" column="user_id"
+			javaType="com.my.buy.entity.PersonInfo">
+			<id column="user_Id" property="userId"/>
+			<result column="user_name" property="userName"/>
+			<result column="profile_img" property="profileImg"/>
+		</association>
+	</resultMap>
+	<insert id="insertComment" useGeneratedKeys="true" keyColumn="comment_id"
+	keyProperty="commentId" parameterType="com.my.buy.entity.Comment">
+		INSERT
+		INTO
+		tb_comment(user_id,product_id,create_time,status,comment_content)
+		VALUES(#{user.userId},#{productId},#{createTime},#{status},#{content})
+	</insert>
+	
+	<select id="queryCommentList" resultMap="commentMap" parameterType="Long">
+		SELECT
+		c.comment_id, 
+		c.product_id,
+		c.create_time,
+		c.comment_content,
+		c.status,
+		u.user_id,
+		u.profile_img,
+		u.user_name
+		FROM
+		tb_comment c,
+		tb_person_info u
+		WHERE
+		u.user_id=c.user_id
+		AND
+		product_id=#{productId}
+		ORDER BY create_time DESC
+	</select>
+	
+	<delete id="deleteComment" parameterType="Long">
+		DELETE
+		FROM 
+		tb_comment
+		WHERE
+		comment_id=#{commentId}
+	</delete>
+	
+	<select id="queryCommentById" resultMap="commentMap">
+		SELECT
+		c.comment_id, 
+		c.product_id,
+		c.create_time,
+		c.comment_content,
+		c.status,
+		u.user_id,
+		u.profile_img,
+		u.user_name
+		FROM
+		tb_comment c,
+		tb_person_info u
+		WHERE
+		u.user_id=c.user_id
+		AND
+		c.comment_id=#{commentId}
+	</select>
+</mapper>
